@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import {MdSnackBar} from '@angular/material';
 import {AuthService} from "../auth.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'cp-login',
@@ -10,6 +11,8 @@ import {AuthService} from "../auth.service";
 export class LoginComponent implements OnInit {
 
   loginError : string;
+  request: Subscription;
+  tryingToLogIn : boolean;
 
   constructor(public loginValidationBar: MdSnackBar,
               private router : Router,
@@ -18,9 +21,14 @@ export class LoginComponent implements OnInit {
   }
 
   login(user){
-    this.authService
+    this.tryingToLogIn = true;
+    if(this.request){
+      this.request.unsubscribe();
+    }
+    this.request = this.authService
       .login(user.username, user.password)
-      .then((lUser) => {
+      .delay(5000)
+      .subscribe((lUser) => {
         if(lUser){
           this.loginError = null;
           this.router.navigate(['/']).then(() => {
@@ -31,6 +39,7 @@ export class LoginComponent implements OnInit {
         } else {
           this.loginError = "username and password was wrong";
         }
+        this.tryingToLogIn = false;
       });
 
 
