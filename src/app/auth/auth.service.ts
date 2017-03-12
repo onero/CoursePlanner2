@@ -19,11 +19,19 @@ export class AuthService {
       .filter(x => x.username === username)
       .filter(y => y.password === password);
     if(userAccepted && userAccepted.length === 1){
+      localStorage.setItem('currentUser', JSON.stringify({ token: "jwt will come later", username: userAccepted[0].username }));
       return Observable.of(userAccepted[0]);
     } else {
       return Observable.of(null);
     }
+  }
 
+  currentUser(){
+    return JSON.parse(localStorage.getItem('currentUser'));
+  }
+
+  logout(){
+    return localStorage.removeItem('currentUser');
   }
 
 }
