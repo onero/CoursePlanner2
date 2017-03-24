@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {AngularFire} from "angularfire2";
+import User = firebase.User;
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'cp-home',
@@ -7,35 +10,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
   toolbarTitle = 'Course Planner 2';
+  users: Observable<User[]>;
 
-  folders = [
-    {
-      name: 'Photos',
-      updated: new Date('1/1/16'),
-    },
-    {
-      name: 'Recipes',
-      updated: new Date('1/17/16'),
-    },
-    {
-      name: 'Work',
-      updated: new Date('1/28/16'),
-    }
-  ];
-  notes = [
-    {
-      name: 'Vacation Itinerary',
-      updated: new Date('2/20/16'),
-    },
-    {
-      name: 'Kitchen Remodel',
-      updated: new Date('1/18/16'),
-    }
-  ];
-
-  constructor() { }
+  constructor(private af : AngularFire) { }
 
   ngOnInit() {
+    this.users = this.af.database.list('/users');
   }
 
 }

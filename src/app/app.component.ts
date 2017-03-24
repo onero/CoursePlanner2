@@ -7,24 +7,25 @@ import {Course} from './Course';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  courses: Course[];
+  courses : Course[];
 
-  constructor() {
+  constructor(){
     this.courses = [
       {
-        academy: 'EASV',
         year: 2017,
         title: 'Angular2',
         education: 'Computer Science',
+        academy: 'EASV',
         lecturer: 'Lars Bilde'
       },
       {
-        academy: 'EASV',
         year: 2017,
-        title: 'Driving on the bus',
+        title: 'ITO',
         education: 'Computer Science',
-        lecturer: 'Adam Hansen'
-      }
-    ];
+        academy: 'EASV',
+        lecturer: 'Lars Bilde'
+      }];
   }
 }
+
+

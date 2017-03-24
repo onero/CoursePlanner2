@@ -2,18 +2,36 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome';
-import { AppComponent } from './app.component';
+import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome'
 import { MaterialModule } from '@angular/material';
 import { RouterModule, Routes } from '@angular/router';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import 'hammerjs';
+import {AngularFireModule, AuthMethods, AuthProviders} from 'angularfire2';
+
+import { AppComponent } from './app.component';
 import { TopToolbarComponent } from './top-toolbar/top-toolbar.component';
 import { HomeComponent } from './home/home.component';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './auth/login/login.component';
+import { LoginViewComponent } from './auth/login/login-view.component';
+import {AuthService} from "./auth/auth.service";
+
+export const firebaseConfig = {
+  apiKey: "AIzaSyCLNW3bMvfgU4ANnJNKMHWVvaDDt61saio",
+  authDomain: "courseplanner2-d2177.firebaseapp.com",
+  databaseURL: "https://courseplanner2-d2177.firebaseio.com",
+  storageBucket: "courseplanner2-d2177.appspot.com",
+  messagingSenderId: "187566028244"
+};
+
+export const firebarebaseLoginConfig = {
+  provider: AuthProviders.Password,
+  method: AuthMethods.Password
+}
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'login', component: LoginComponent },
+  { path: 'login', component: LoginComponent }
 ];
 
 @NgModule({
@@ -21,17 +39,20 @@ const appRoutes: Routes = [
     AppComponent,
     TopToolbarComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    LoginViewComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     Angular2FontawesomeModule,
-    [MaterialModule],
-    RouterModule.forRoot(appRoutes)
+    MaterialModule,
+    FlexLayoutModule,
+    RouterModule.forRoot(appRoutes),
+    AngularFireModule.initializeApp(firebaseConfig, firebarebaseLoginConfig)
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
