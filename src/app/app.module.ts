@@ -17,6 +17,10 @@ import { LoginViewComponent } from './auth/login/login-view.component';
 import {AuthService} from "./auth/auth.service";
 import {UserService} from "./users/user.service";
 import {AuthGuard} from "./auth/auth-guard";
+import { UsersViewComponent } from './users/users-view/users-view.component';
+import { UsersListComponent } from './users/users-view/users-list.component';
+import { UsersComponent } from './users/users/users.component';
+import { UserListComponent } from './users/user-list/user-list.component';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyCLNW3bMvfgU4ANnJNKMHWVvaDDt61saio",
@@ -32,7 +36,8 @@ export const firebarebaseLoginConfig = {
 }
 
 const appRoutes: Routes = [
-  { path: '', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: '', component: HomeComponent},
+  { path: 'users', component: UsersViewComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent }
 ];
 
@@ -42,7 +47,11 @@ const appRoutes: Routes = [
     TopToolbarComponent,
     HomeComponent,
     LoginComponent,
-    LoginViewComponent
+    LoginViewComponent,
+    UsersViewComponent,
+    UsersListComponent,
+    UsersComponent,
+    UserListComponent
   ],
   imports: [
     BrowserModule,

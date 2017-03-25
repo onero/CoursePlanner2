@@ -21,6 +21,14 @@ export class AuthService {
     return this.af.auth;
   }
 
+  isAuthenticated() : Observable<boolean> {
+    return this.af.auth
+      .take(1)
+      //!authstate = true is state not there
+      //!!authstate = true if state is there
+      .map((authState: FirebaseAuthState) => !!authState)
+  }
+
   logout() : Observable<void>{
     let promise = this.af.auth.logout();
     return Observable.fromPromise(promise);
