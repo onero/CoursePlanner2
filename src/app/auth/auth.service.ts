@@ -17,12 +17,13 @@ export class AuthService {
     return Observable.fromPromise(promise);
   }
 
-  currentUser(){
-    return JSON.parse(localStorage.getItem('currentUser'));
+  currentUser() : Observable<FirebaseAuthState>{
+    return this.af.auth;
   }
 
-  logout(){
-    return localStorage.removeItem('currentUser');
+  logout() : Observable<void>{
+    let promise = this.af.auth.logout();
+    return Observable.fromPromise(promise);
   }
 
 }

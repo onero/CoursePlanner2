@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AngularFire} from "angularfire2";
 import User = firebase.User;
 import {Observable} from "rxjs";
+import {UserService} from "../users/user.service";
 
 @Component({
   selector: 'cp-home',
@@ -12,10 +13,10 @@ export class HomeComponent implements OnInit {
   toolbarTitle = 'Course Planner 2';
   users: Observable<User[]>;
 
-  constructor(private af : AngularFire) { }
+  constructor(private userService : UserService) { }
 
   ngOnInit() {
-    this.users = this.af.database.list('/users');
+    this.users = this.userService.getUsers();
   }
 
 }
