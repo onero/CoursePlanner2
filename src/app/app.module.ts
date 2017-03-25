@@ -1,13 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import {HttpModule} from '@angular/http';
 import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome'
 import { MaterialModule } from '@angular/material';
 import { RouterModule, Routes } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import 'hammerjs';
-import {AngularFireModule, AuthMethods, AuthProviders} from 'angularfire2';
+import {AngularFireModule, AuthProviders, AuthMethods} from 'angularfire2';
 
 import { AppComponent } from './app.component';
 import { TopToolbarComponent } from './top-toolbar/top-toolbar.component';
@@ -17,10 +17,10 @@ import { LoginViewComponent } from './auth/login/login-view.component';
 import {AuthService} from "./auth/auth.service";
 import {UserService} from "./users/user.service";
 import {AuthGuard} from "./auth/auth-guard";
-import { UsersViewComponent } from './users/users-view/users-view.component';
-import { UsersListComponent } from './users/users-view/users-list.component';
 import { UsersComponent } from './users/users/users.component';
 import { UserListComponent } from './users/user-list/user-list.component';
+import { UserComponent } from './users/user/user.component';
+import { UserCreateComponent } from './users/user-create/user-create.component';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyCLNW3bMvfgU4ANnJNKMHWVvaDDt61saio",
@@ -36,8 +36,8 @@ export const firebarebaseLoginConfig = {
 }
 
 const appRoutes: Routes = [
-  { path: '', component: HomeComponent},
-  { path: 'users', component: UsersViewComponent, canActivate: [AuthGuard] },
+  { path: '', component: HomeComponent, canActivate: [AuthGuard]},
+  { path: 'users', component: UsersComponent, canActivate: [AuthGuard]},
   { path: 'login', component: LoginComponent }
 ];
 
@@ -48,10 +48,10 @@ const appRoutes: Routes = [
     HomeComponent,
     LoginComponent,
     LoginViewComponent,
-    UsersViewComponent,
-    UsersListComponent,
     UsersComponent,
-    UserListComponent
+    UserListComponent,
+    UserComponent,
+    UserCreateComponent
   ],
   imports: [
     BrowserModule,
@@ -68,7 +68,6 @@ const appRoutes: Routes = [
     UserService,
     AuthGuard
   ],
-
   bootstrap: [AppComponent]
 })
 export class AppModule { }
